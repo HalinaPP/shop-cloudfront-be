@@ -56,12 +56,12 @@ functions:
       - httpApi:
           path: /products
           method: get
-  #getProductById:
-   # handler: handler.getProductById
-    #events:
-     # - http:
-      #    path: products/{productId} 
-       #   method: get
+  getProductById:
+    handler: handler.getProductById
+    events:
+      - httpApi:
+          path: /products/{productId} 
+          method: get
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)

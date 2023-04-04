@@ -1,4 +1,4 @@
-//import { getProductById } from './handlers/getProductById';
+import { getProductById } from './handlers/getProductById';
 import { getProductsList } from './handlers/getProductsList';
 
-export { getProductsList };
+export { getProductsList, getProductById };
