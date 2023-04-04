@@ -1,5 +1,6 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { getProducts } from '../data/data.service';
+import { getOneProduct } from '../data/data.service';
+import { Product } from '../models/product';
 
 export const getProductById = async (event: APIGatewayProxyEvent) => {
   const { productId } = event.pathParameters!;
@@ -9,13 +10,11 @@ export const getProductById = async (event: APIGatewayProxyEvent) => {
   };
 
   try {
-    const sweets = await getProducts();
-
-    if (!sweets) {
-      throw new Error('Error: products not found');
+    if (!productId) {
+      throw new Error('Error: bad data');
     }
 
-    const product = sweets.find((product) => product.id === productId);
+    const product: Product | undefined = await getOneProduct(productId);
 
     if (!product) {
       throw new Error('Error: product not found');
