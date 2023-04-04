@@ -53,15 +53,17 @@ functions:
   getProductsList:
     handler: handler.getProductsList
     events:
-      - httpApi:
-          path: /products
+      - http:
+          path: products
           method: get
+          cors: true
   getProductById:
     handler: handler.getProductById
     events:
-      - httpApi:
-          path: /products/{productId} 
+      - http:
+          path: products/{productId} 
           method: get
+          cors: true
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)

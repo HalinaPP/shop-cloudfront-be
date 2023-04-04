@@ -1,0 +1,4 @@
+  version: '1'
+  title: 'My API'
+  description: 'This is my API'
+  models: {}
