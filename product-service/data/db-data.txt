@@ -1,0 +1,32 @@
+INSERT INTO "stocks" VALUE {'product_id':'19ba3d6a-f8ed-491b-a192-0a33b71b38c4', 'count': 20}
+INSERT INTO "stocks" VALUE {'product_id':'19ba3d6a-f8ed-491b-a192-0a33b71b38c5', 'count': 101}
+INSERT INTO "stocks" VALUE {'product_id':'19ba3d6a-f8ed-491b-a192-0a33b71b38c6', 'count': 89}
+INSERT INTO "stocks" VALUE {'product_id':'19ba3d6a-f8ed-491b-a192-0a33b71b38c7', 'count': 8}
+INSERT INTO "stocks" VALUE {'product_id':'19ba3d6a-f8ed-491b-a192-0a33b71b38c8', 'count': 35}
+
+INSERT INTO "products" VALUE {'id':'19ba3d6a-f8ed-491b-a192-0a33b71b38c4', 'description': 'This is sweet colored bears.','price': 97,'title': 'Colored bears'},
+  {
+    "description": 'Chocolate sweets',
+    'id': '19ba3d6a-f8ed-491b-a192-0a33b71b38c5',
+    'price': 94.2,
+    'title': 'Chocolate sweets'
+  },
+  {
+    'description': 'Chupa-chups',
+    'id': '19ba3d6a-f8ed-491b-a192-0a33b71b38c6',
+    'price': 90.8,
+    'title': 'Chupa-chups'
+  },
+  {
+    'description': 'Rainbow dragees',
+    'id': '19ba3d6a-f8ed-491b-a192-0a33b71b38c7',
+    'price': 38,
+    'title': 'Rainbow dragees'
+  },
+  {
+    'description': 'Marmalade',
+    'id': '19ba3d6a-f8ed-491b-a192-0a33b71b38c8',
+    'price': 52,
+    'title': 'Marmalade'
+  }
+

@@ -1,24 +1,25 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { getProducts } from '../data/data.service';
-import { Product } from '../models/product';
+
 
 export const getProductsList = async (event: APIGatewayProxyEvent) => {
+  const reqC = event.requestContext;
+  console.log(reqC.requestTime + ' ' + reqC.httpMethod + ' ' + reqC.identity.sourceIp + ' ' + reqC.identity.userAgent +
+    ' ' + reqC.protocol + ' ' + reqC.domainName + ' ' + reqC.path);
+
+
   const headers = {
     "Access-Control-Allow-Origin": "*",
     'Access-Control-Allow-Credentials': true
   };
 
   try {
-    const sweets: Product[] = await getProducts();
-
-    if (!sweets) {
-      throw new Error('Error: products not found');
-    }
+    const products = await getProducts();
 
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify([...sweets], null, 2)
+      body: JSON.stringify(products, null, 2)
     };
   } catch (error) {
     return {

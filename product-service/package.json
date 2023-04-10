@@ -25,6 +25,7 @@
     "node": ">=14.0.0"
   },
   "dependencies": {
-    "aws-lambda": "^1.0.7"
+    "aws-lambda": "^1.0.7",
+    "aws-sdk": "^2.1353.0"
   }
 }

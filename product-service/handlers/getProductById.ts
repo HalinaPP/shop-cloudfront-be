@@ -1,12 +1,29 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { getOneProduct } from '../data/data.service';
-import { Product } from '../models/product';
 
 export const getProductById = async (event: APIGatewayProxyEvent) => {
   const { productId } = event.pathParameters!;
+  const reqC = event.requestContext;
+
+  console.log(
+    reqC.requestTime +
+    ' ' +
+    reqC.httpMethod +
+    ' ' +
+    reqC.identity.sourceIp +
+    ' ' +
+    reqC.identity.userAgent +
+    ' ' +
+    reqC.protocol +
+    ' ' +
+    reqC.domainName +
+    ' ' +
+    reqC.path
+  );
+
   const headers = {
-    "Access-Control-Allow-Origin": "*",
-    'Access-Control-Allow-Credentials': true,
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': true
   };
 
   try {
@@ -14,11 +31,7 @@ export const getProductById = async (event: APIGatewayProxyEvent) => {
       throw new Error('Error: bad data');
     }
 
-    const product: Product | undefined = await getOneProduct(productId);
-
-    if (!product) {
-      throw new Error('Error: product not found');
-    }
+    const product = await getOneProduct(productId);
 
     return {
       statusCode: 200,
