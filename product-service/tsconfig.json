@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "preserveConstEnums": true,
+    "strictNullChecks": true,
+    "inlineSources": true,
+    "inlineSourceMap": true,
+    "sourceRoot": "/",
+    "target": "es6",
+    "outDir": ".build",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "lib": ["ES6"],
+    "rootDir": ".",
+    "resolveJsonModule": true,
+    "module": "ES6",
+    "allowSyntheticDefaultImports": true,
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

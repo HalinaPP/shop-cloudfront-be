@@ -1,0 +1,42 @@
+[
+  {
+    "count": 4,
+    "description": "This is sweet colored bears.",
+    "id": "7567ec4b-b10c-48c5-9345-fc73c48a80aa",
+    "price": 97.9,
+    "title": "Colored bears",
+    "image": "./images/beer.jpg"
+  },
+  {
+    "count": 6,
+    "description": "Chocolate sweets",
+    "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a0",
+    "price": 94.2,
+    "title": "Chocolate sweets",
+    "image": "./images/choko.jpg"
+  },
+  {
+    "count": 7,
+    "description": "Chupa-chups",
+    "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a2",
+    "price": 90.8,
+    "title": "Chupa-chups",
+    "image": "./images/chupa.jpg"
+  },
+  {
+    "count": 12,
+    "description": "Rainbow dragees",
+    "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a1",
+    "price": 38,
+    "title": "Rainbow dragees",
+    "image": "./images/draze.jpg"
+  },
+  {
+    "count": 7,
+    "description": "Marmalade",
+    "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a2",
+    "price": 52,
+    "title": "Marmalade",
+    "image": "./images/marmelad.jpg"
+  }
+]
