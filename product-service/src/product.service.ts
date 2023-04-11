@@ -1,16 +1,14 @@
-import { DynamoDB } from 'aws-sdk';
+import { v4 as uuidv4 } from 'uuid';
+import { errorResponse } from './errors-hadler';
 import { db } from '../handler';
-import { Product } from '../models/product';
-
-const productsTableName = process.env.TABLE_PRODUCTS || 'products';
-const stocksTableName = process.env.TABLE_STOCKS || 'stocks';
+import { Product } from './models/product';
+import { productsTableName, stocksTableName } from './constants';
 
 const isEmptyResult = (queryResult) => {
   return !queryResult || !queryResult.Items || !queryResult.Items[0];
 };
 
 const getItem = async (
-  db: DynamoDB.DocumentClient,
   tableName: string,
   keyName: string,
   keyValue: string
@@ -27,7 +25,7 @@ const getItem = async (
   const queryResult = await db.query(params).promise();
 
   if (isEmptyResult(queryResult)) {
-    throw new Error('Error: product not found');
+    errorResponse(404, 'Product not found');
   }
 
   return queryResult!.Items![0];
@@ -41,12 +39,12 @@ export const getProducts = async () => {
     .promise();
 
   if (!products) {
-    throw new Error('Error: products not found');
+    errorResponse(404, 'Products not found');
   }
 
   const productsWithStockData = await Promise.allSettled(
     products!.Items!.map(async (item) => {
-      const stocks = await getItem(db, stocksTableName, 'product_id', item.id);
+      const stocks = await getItem(stocksTableName, 'product_id', item.id);
 
       return {
         ...item,
@@ -63,12 +61,8 @@ export const getProducts = async () => {
 };
 
 export const getOneProduct = async (id: string) => {
-  if (!id) {
-    throw new Error('Error: bad data');
-  }
-
-  const products = await getItem(db, productsTableName, 'id', id);
-  const stocks = await getItem(db, stocksTableName, 'product_id', id);
+  const products = await getItem(productsTableName, 'id', id);
+  const stocks = await getItem(stocksTableName, 'product_id', id);
 
   const productById = {
     ...products,
@@ -77,3 +71,31 @@ export const getOneProduct = async (id: string) => {
 
   return productById;
 };
+
+const addItem = async (
+  tableName: string,
+  data: object,
+) => {
+  const params = {
+    TableName: tableName,
+    Item: {
+      ...data
+    }
+  };
+
+  await db.put(params).promise();
+};
+
+export const addProduct = async (data: Product) => {
+  const id = uuidv4();
+
+  const { count, image, ...productData } = data;
+  productData.id = id;
+  await addItem(productsTableName, productData);
+
+  const stockData = { product_id: id, count }
+  await addItem(stocksTableName, stockData)
+
+  const product = await getOneProduct(id);
+  return product;
+} 
