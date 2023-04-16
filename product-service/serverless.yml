@@ -55,10 +55,6 @@ provider:
             - dynamodb:DeleteItem
           Resource: 'arn:aws:dynamodb:us-east-1:*:*'
 
-# you can define service wide environment variables here
- # environment:
-  #  TABLE_PRODUCTS: products
-
 # you can add packaging information here
 #package:
 #  patterns:
@@ -89,6 +85,9 @@ functions:
           path: products
           method: put
           cors: true
+#          request:
+#            schemas:
+#              application/json: 
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
@@ -117,10 +116,6 @@ functions:
 #          conditions:
 #            host: example.com
 #            path: /hello
-
-#    Define function environment variables here
-    #environment:
-     # TABLE_PRODUCTS: products
 
 # you can add CloudFormation resource templates here
 #resources:

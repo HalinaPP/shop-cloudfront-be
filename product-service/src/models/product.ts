@@ -1,8 +1,10 @@
 export type Product = {
-  "id": string;
-  "title": string;
-  "description": string;
-  "image": string;
-  "count": number;
-  "price": number;
-}
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+};
+
+export interface ProductWithCount extends Product {
+  count: number;
+};

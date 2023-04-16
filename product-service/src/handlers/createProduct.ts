@@ -3,16 +3,26 @@ import { addProduct } from '../product.service';
 import { headers } from '../constants';
 import { errorResponse } from '../errors-hadler';
 import { logRequestContextMessage } from '../logger';
-import { Product } from '../models/product';
+import { ProductWithCount } from '../models/product';
 
-const isInvalidProductData = (data: Product) => {
-  // use joi
-  return false;
-}
+const isInvalidProductData = (data: ProductWithCount) => {
+  const { title, description, price, count } = data;
+
+  return (
+    !title ||
+    !description ||
+    !price ||
+    typeof price !== 'number' ||
+    price <= 0 ||
+    !count ||
+    typeof count !== 'number' ||
+    count < 1
+  );
+};
 
 export const createProduct = async (event: APIGatewayProxyEvent) => {
   try {
-    // logRequestContextMessage(event.requestContext);
+    logRequestContextMessage(event.requestContext);
 
     const data = event.body
       ? JSON.parse(event.body)
@@ -23,14 +33,12 @@ export const createProduct = async (event: APIGatewayProxyEvent) => {
         count: 11
       };
 
-    console.log("body val:", event.body);
-
     if (isInvalidProductData(data)) {
       errorResponse(400);
-    };
+    }
 
     const newProduct = await addProduct(data);
-    console.log('newProduct');
+
     if (!newProduct) {
       throw new Error();
     }

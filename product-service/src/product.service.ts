@@ -1,8 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import { errorResponse } from './errors-hadler';
 import { db } from '../handler';
-import { Product } from './models/product';
+import { Product, ProductWithCount } from './models/product';
 import { productsTableName, stocksTableName } from './constants';
+import { Stock } from './models/stock';
 
 const isEmptyResult = (queryResult) => {
   return !queryResult || !queryResult.Items || !queryResult.Items[0];
@@ -60,13 +61,13 @@ export const getProducts = async () => {
   return fulfilledProducts;
 };
 
-export const getOneProduct = async (id: string) => {
-  const products = await getItem(productsTableName, 'id', id);
-  const stocks = await getItem(stocksTableName, 'product_id', id);
+export const getOneProduct = async (id: string): Promise<ProductWithCount> => {
+  const product = (await getItem(productsTableName, 'id', id)) as Product;
+  const stock = await getItem(stocksTableName, 'product_id', id) as Stock;
 
   const productById = {
-    ...products,
-    count: stocks.count
+    ...product,
+    count: stock.count
   };
 
   return productById;
@@ -86,10 +87,10 @@ const addItem = async (
   await db.put(params).promise();
 };
 
-export const addProduct = async (data: Product) => {
+export const addProduct = async (data: ProductWithCount): Promise<ProductWithCount> => {
   const id = uuidv4();
 
-  const { count, image, ...productData } = data;
+  const { count, ...productData } = data;
   productData.id = id;
   await addItem(productsTableName, productData);
 
