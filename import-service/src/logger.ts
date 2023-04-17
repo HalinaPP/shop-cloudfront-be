@@ -1,11 +1,16 @@
-import { APIGatewayEventDefaultAuthorizerContext, APIGatewayEventRequestContextWithAuthorizer } from 'aws-lambda';
+import {
+  APIGatewayEventDefaultAuthorizerContext,
+  APIGatewayEventRequestContextWithAuthorizer
+} from 'aws-lambda';
 
-export const logRequestContextMessage = (requestContext: APIGatewayEventRequestContextWithAuthorizer<APIGatewayEventDefaultAuthorizerContext>
+export const logRequestContextMessage = (
+  requestContext: APIGatewayEventRequestContextWithAuthorizer<APIGatewayEventDefaultAuthorizerContext>,
+  body = ''
 ) => {
   const { requestTime, httpMethod, identity, protocol, domainName, path } =
     requestContext;
 
-  console.log(
+  let message =
     requestTime +
     ' ' +
     httpMethod +
@@ -18,6 +23,14 @@ export const logRequestContextMessage = (requestContext: APIGatewayEventRequestC
     ' ' +
     domainName +
     ' ' +
-    path
-  );
+    path;
+
+  if (body) {
+    message += ' ' + body;
+  }
+  console.log(message);
 };
+
+export const logError = (code: number, message: string) => {
+  console.log(`error code: ${code}, message: ${message}`);
+}

@@ -52,15 +52,21 @@ functions:
       - http:
           path: import
           method: get
+          request:
+            parameters: {
+              querystrings: {
+                name: true
+              }
+            } 
           cors: true
-  importFileParser:
-    handler: handler.importFileParser
-    events:
-      - s3: 
-        bucket: uploaded-hp
-        event: s3:ObjectCreated:*
-        rules: 
-          - prefix: uploaded/
+ # importFileParser:
+  #  handler: handler.importFileParser
+   # events:
+    #  - s3: 
+     #   bucket: uploaded-hp
+      #  event: s3:ObjectCreated:*
+       # rules: 
+        #  - prefix: uploaded/
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)

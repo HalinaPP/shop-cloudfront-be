@@ -5,15 +5,27 @@ import { errorResponse } from '../errors-hadler';
 import { logRequestContextMessage } from '../logger';
 
 export const importProductsFile = async (event: APIGatewayProxyEvent) => {
-  // logRequestContextMessage(event.requestContext)
+  const querystring = event.queryStringParameters;
+  const fileName = querystring?.name;
+
+  logRequestContextMessage(event.requestContext, fileName);
 
   try {
-    // const products = await getProducts();
+    if (!fileName) {
+      return errorResponse(400);
+    }
+    const signedUrl = `uploaded/${fileName}`;
 
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ o: "some" }, null, 2)
+      body: JSON.stringify(
+        {
+          data: signedUrl
+        },
+        null,
+        2
+      )
     };
   } catch (error) {
     return errorResponse(500, error.message);

@@ -3,29 +3,24 @@ import { headers } from '../constants';
 import { errorResponse } from '../errors-hadler';
 import { logRequestContextMessage } from '../logger';
 
-export const importFileParser = async (event) => {
-  // const { productId } = event.pathParameters!;
+export const importFileParser = async (event: APIGatewayProxyEvent) => {
+  const querystring = event.queryStringParameters;
+  const fileName = querystring?.name;
 
-  console.log('evet=', event);
-  //logRequestContextMessage(event.requestContext)
+  logRequestContextMessage(event.requestContext, fileName);
 
   try {
-    /*   if (!productId) {
-         return errorResponse(400);
-       }
-   
-       const product = await getOneProduct(productId);
-   
-       if (!product) {
-         return errorResponse(404);
-       }
-   */
+    if (!fileName) {
+      return errorResponse(400);
+    }
+    const signedUrl = `uploaded/${fileName}`;
+
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify(
         {
-          o: "some"
+          data: signedUrl
         },
         null,
         2
