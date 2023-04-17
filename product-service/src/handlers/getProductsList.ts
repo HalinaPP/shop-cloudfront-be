@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { getProducts } from '../product.service';
+import { getProducts } from '../services/product.service';
 import { headers } from '../constants';
 import { errorResponse } from '../errors-hadler';
 import { logRequestContextMessage } from '../logger';
