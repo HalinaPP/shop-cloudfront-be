@@ -3,24 +3,17 @@ import { headers } from '../constants';
 import { errorResponse } from '../errors-hadler';
 import { logRequestContextMessage } from '../logger';
 
-export const importFileParser = async (event: APIGatewayProxyEvent) => {
-  const querystring = event.queryStringParameters;
-  const fileName = querystring?.name;
-
-  logRequestContextMessage(event.requestContext, fileName);
+export const importFileParser = async (event) => {
+  //logRequestContextMessage(event.requestContext, fileName);
 
   try {
-    if (!fileName) {
-      return errorResponse(400);
-    }
-    const signedUrl = `uploaded/${fileName}`;
 
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify(
         {
-          data: signedUrl
+          data: "some"
         },
         null,
         2
