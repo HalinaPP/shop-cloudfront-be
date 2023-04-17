@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
-import { errorResponse } from './errors-hadler';
-import { db } from '../handler';
-import { Product, ProductWithCount } from './models/product';
-import { productsTableName, stocksTableName } from './constants';
-import { Stock } from './models/stock';
+import { errorResponse } from '../errors-hadler';
+import { db } from '../../handler';
+import { Product, ProductWithCount } from '../models/product';
+import { productsTableName, stocksTableName } from '../constants';
+import { Stock } from '../models/stock';
 
 const isEmptyResult = (queryResult) => {
   return !queryResult || !queryResult.Items || !queryResult.Items[0];

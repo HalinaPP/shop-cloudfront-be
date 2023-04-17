@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { addProduct } from '../product.service';
+import { addProduct } from '../services/product.service';
 import { headers } from '../constants';
 import { errorResponse } from '../errors-hadler';
 import { logRequestContextMessage } from '../logger';
@@ -22,16 +22,16 @@ const isInvalidProductData = (data: ProductWithCount) => {
 
 export const createProduct = async (event: APIGatewayProxyEvent) => {
   try {
-    logRequestContextMessage(event.requestContext);
+    if (!event.body) {
+      errorResponse(400);
+    }
 
-    const data = event.body
-      ? JSON.parse(event.body)
-      : {
-        description: 'This is new sweets',
-        price: 88,
-        title: 'New sweets',
-        count: 11
-      };
+    const { body } = event;
+
+    logRequestContextMessage(event.requestContext, body!);
+
+    const data = JSON.parse(body!)
+
 
     if (isInvalidProductData(data)) {
       errorResponse(400);
