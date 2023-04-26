@@ -85,6 +85,16 @@ functions:
           path: products
           method: put
           cors: true
+  catalogBatchProcess:
+    handler: handler.catalogBatchProcess
+    events:
+      - sqs:
+          arn: arn:aws:sqs:region:us-east-1:catalogItemsQueue
+          batchSize: 5
+          
+
+
+    catalogItemsQueue
 #          request:
 #            schemas:
 #              application/json: 

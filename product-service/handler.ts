@@ -1,6 +1,6 @@
 import { DynamoDB } from 'aws-sdk';
-import { getProductsList, getProductById, createProduct } from './src/handlers';
+import { getProductsList, getProductById, createProduct, catalogBatchProcess } from './src/handlers';
 
 export const db = new DynamoDB.DocumentClient();
 
-export { getProductsList, getProductById, createProduct };
+export { getProductsList, getProductById, createProduct, catalogBatchProcess };
